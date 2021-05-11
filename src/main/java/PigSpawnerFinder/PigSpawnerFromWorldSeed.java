@@ -96,7 +96,6 @@ public class PigSpawnerFromWorldSeed {
 				}
 				if (piecesBeforeSpawner != 0) continue;
 
-				System.out.println("STEP 1: Spawner could work for : " + spawner);
 				findOutIfCorrect(worldSeed, spawner);
 			}
 		}
@@ -182,7 +181,6 @@ public class PigSpawnerFromWorldSeed {
 		if (hasCobwebsNearby) return;
 
 		BPos spawnerPos = new BPos((spawnerChunkX << 4) + 9, spawner.y, (spawnerChunkZ << 4) + 9);
-		System.out.println("STEP 2: Spawner passed the buried treasure test : " + spawner);
 		processWorldSeed(worldseed, spawnerPos);
 
 	}
