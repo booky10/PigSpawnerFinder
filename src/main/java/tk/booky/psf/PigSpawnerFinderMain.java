@@ -25,7 +25,7 @@ public class PigSpawnerFinderMain {
                 long seed;
                 // noinspection all
                 while (true) {
-                    LOGGER.error("Searching an area of {}x{} chunks in {}...", MULTIPLIED, MULTIPLIED, seed = RANDOM.nextLong());
+                    LOGGER.info("Searching an area of {}x{} chunks in {}...", MULTIPLIED, MULTIPLIED, seed = RANDOM.nextLong());
 
                     for (int x = -SIZE; x < SIZE; x++) {
                         for (int z = -SIZE; z < SIZE; z++) {
