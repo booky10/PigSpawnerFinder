@@ -1,9 +1,9 @@
 package tk.booky.psf.main;
 // Created by booky10 in PigSpawnerFinder (20:11 11.05.21)
 
-import PigSpawnerFinder.PigSpawnerFromWorldSeed;
 import joptsimple.OptionSet;
 import tk.booky.psf.threads.GarbageCollectorThread;
+import tk.booky.psf.threads.SeedFindingThread;
 import tk.booky.psf.utils.Constants;
 
 public class PigSpawnerFinderMain {
@@ -16,24 +16,10 @@ public class PigSpawnerFinderMain {
 
         OptionSet options = new ArgumentParser(args).parse();
         int threads = (int) options.valueOf("threads");
-        int size = (int) options.valueOf("size"), multiplied = size * 2;
+        int size = (int) options.valueOf("size");
 
         for (int i = 1; i <= threads; i++) {
-            new Thread(() -> {
-                Constants.LOGGER.info("Started finding seeds...");
-
-                long seed;
-                // noinspection all
-                while (true) {
-                    Constants.LOGGER.debug("Searching an area of {}x{} chunks in {}...", multiplied, multiplied, seed = Constants.RANDOM.nextLong());
-
-                    for (int x = -size; x < size; x++) {
-                        for (int z = -size; z < size; z++) {
-                            PigSpawnerFromWorldSeed.processForChunk(seed, x, z);
-                        }
-                    }
-                }
-            }, "Finder Thread " + i).start();
+            new SeedFindingThread(i, size).start();
 
             try {
                 Thread.sleep(i != threads ? 1000 : 125);
