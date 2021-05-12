@@ -1,4 +1,4 @@
-package tk.booky.psf;
+package tk.booky.psf.main;
 // Created by booky10 in PigSpawnerFinder (19:53 12.05.21)
 
 import org.slf4j.Logger;

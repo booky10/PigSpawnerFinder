@@ -1,4 +1,4 @@
-package tk.booky.psf;
+package tk.booky.psf.main;
 // Created by booky10 in PigSpawnerFinder (20:11 11.05.21)
 
 import PigSpawnerFinder.PigSpawnerFromWorldSeed;
