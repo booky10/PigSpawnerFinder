@@ -6,7 +6,7 @@ import tk.booky.psf.threads.GarbageCollectorThread;
 import tk.booky.psf.threads.SeedFindingThread;
 import tk.booky.psf.utils.Constants;
 
-public class PigSpawnerFinderMain {
+public class FinderMain {
 
     // TODO: proper seed finding cleanup
 

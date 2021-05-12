@@ -33,7 +33,7 @@ dependencies {
 }
 
 run {
-    setMainClassName('tk.booky.psf.main.PigSpawnerFinderMain')
+    setMainClassName('tk.booky.psf.main.FinderMain')
     standardInput = System.in
 
     setWorkingDir(new File(getProjectDir(), 'run'))
