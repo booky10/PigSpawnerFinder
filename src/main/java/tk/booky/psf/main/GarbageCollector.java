@@ -3,6 +3,7 @@ package tk.booky.psf.main;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tk.booky.psf.utils.Constants;
 
 public class GarbageCollector extends Thread {
 
@@ -12,6 +13,12 @@ public class GarbageCollector extends Thread {
         super("Garbage Collector Thread");
 
         setDaemon(true);
+    }
+
+    @Override
+    public synchronized void start() {
+        Constants.LOGGER.info("Started garbage collector thread!");
+        super.start();
     }
 
     @Override

@@ -19,10 +19,12 @@ public class PigSpawnerFinderMain {
 
         for (int i = 1; i <= threads; i++) {
             new Thread(() -> {
+                Constants.LOGGER.info("Started finding seeds...");
+
                 long seed;
                 // noinspection all
                 while (true) {
-                    Constants.LOGGER.info("Searching an area of {}x{} chunks in {}...", multiplied, multiplied, seed = Constants.RANDOM.nextLong());
+                    Constants.LOGGER.debug("Searching an area of {}x{} chunks in {}...", multiplied, multiplied, seed = Constants.RANDOM.nextLong());
 
                     for (int x = -size; x < size; x++) {
                         for (int z = -size; z < size; z++) {
@@ -32,19 +34,15 @@ public class PigSpawnerFinderMain {
                 }
             }, "Finder Thread " + i).start();
 
-            if (i != threads) {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException exception) {
-                    exception.printStackTrace();
-                    System.exit(1);
-                }
+            try {
+                Thread.sleep(i != threads ? 1000 : 125);
+            } catch (InterruptedException exception) {
+                exception.printStackTrace();
+                System.exit(1);
             }
         }
 
         Constants.LOGGER.info("Started {} seed finding threads!", threads);
-
         new GarbageCollector().start();
-        Constants.LOGGER.info("Started garbage collector thread!");
     }
 }
