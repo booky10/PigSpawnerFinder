@@ -3,6 +3,7 @@ package tk.booky.psf.main;
 
 import PigSpawnerFinder.PigSpawnerFromWorldSeed;
 import joptsimple.OptionSet;
+import tk.booky.psf.threads.GarbageCollectorThread;
 import tk.booky.psf.utils.Constants;
 
 public class PigSpawnerFinderMain {
@@ -43,6 +44,6 @@ public class PigSpawnerFinderMain {
         }
 
         Constants.LOGGER.info("Started {} seed finding threads!", threads);
-        new GarbageCollector().start();
+        new GarbageCollectorThread().start();
     }
 }
