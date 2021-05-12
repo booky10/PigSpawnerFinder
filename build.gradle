@@ -14,15 +14,20 @@ java {
 }
 
 repositories {
+    mavenCentral()
     maven { url = 'https://jitpack.io' }
 }
 
 dependencies {
-    implementation('com.github.KaptainWutax:SeedUtils:b6a383113ce5d8d09a59e91b28ff064fb97c0709') { transitive = false }
-    implementation('com.github.KaptainWutax:MCUtils:dd9eaf04cb14dd89ed72fe874aa2049457d83904') { transitive = false }
+    implementation 'com.github.KaptainWutax:MCUtils:dd9eaf04cb14dd89ed72fe874aa2049457d83904'
+    implementation 'com.github.KaptainWutax:SeedUtils:b6a383113ce5d8d09a59e91b28ff064fb97c0709'
+    implementation 'com.github.KaptainWutax:BiomeUtils:4c16b06fb7dc8d8877c0214a66b0ab261f44104a'
+    implementation 'com.github.KaptainWutax:TerrainUtils:dbba2ba61a2c8920b48b1fb9a32fa8e9fe353d61'
 
-    implementation('com.github.KaptainWutax:BiomeUtils:4c16b06fb7dc8d8877c0214a66b0ab261f44104a') { transitive = false }
-    implementation('com.github.KaptainWutax:TerrainUtils:dbba2ba61a2c8920b48b1fb9a32fa8e9fe353d61') { transitive = false }
+    implementation 'org.slf4j:slf4j-api:2.0.0-alpha1'
+    implementation 'org.apache.logging.log4j:log4j-api:2.9.1'
+    implementation 'org.apache.logging.log4j:log4j-core:2.9.1'
+    implementation 'org.apache.logging.log4j:log4j-slf4j18-impl:2.14.1'
 }
 
 application {

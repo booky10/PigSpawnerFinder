@@ -2,29 +2,30 @@ package tk.booky.psf;
 // Created by booky10 in PigSpawnerFinder (20:11 11.05.21)
 
 import PigSpawnerFinder.PigSpawnerFromWorldSeed;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Random;
 
 public class PigSpawnerFinderMain {
 
-    // TODO: proper logging system
     // TODO: jobtsimple \w argument parsing
     // TODO: proper seed finding cleanup
 
+    private static final Logger LOGGER = LoggerFactory.getLogger("Main");
     private static final Random RANDOM = new Random(System.currentTimeMillis());
     private static final int SIZE = 2400, MULTIPLIED = SIZE * 2, THREADS = 10;
 
     public static void main(String[] args) {
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> System.out.println("Shutting down..."), "Shutdown Thread"));
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> LOGGER.info("Shutting down"), "Shutdown Thread"));
         Thread.currentThread().setName("Startup Thread");
 
         for (int i = 1; i <= THREADS; i++) {
-            int thread = i;
             new Thread(() -> {
                 long seed;
                 // noinspection all
                 while (true) {
-                    System.out.printf("[Thread %d] Searching an area of %dx%d chunks in %d...%n", thread, MULTIPLIED, MULTIPLIED, (seed = RANDOM.nextLong()));
+                    LOGGER.error("Searching an area of {}x{} chunks in {}...", MULTIPLIED, MULTIPLIED, seed = RANDOM.nextLong());
 
                     for (int x = -SIZE; x < SIZE; x++) {
                         for (int z = -SIZE; z < SIZE; z++) {
@@ -32,9 +33,9 @@ public class PigSpawnerFinderMain {
                         }
                     }
                 }
-            }, "Finder Thread " + thread).start();
+            }, "Finder Thread " + i).start();
 
-            if (thread != THREADS) {
+            if (i != THREADS) {
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException exception) {
@@ -43,9 +44,10 @@ public class PigSpawnerFinderMain {
                 }
             }
         }
-        System.out.println("[Thread NaN] Started " + THREADS + " seed finding threads!");
+
+        LOGGER.info("Started {} seed finding threads!", THREADS);
 
         new GarbageCollector().start();
-        System.out.println("[Thread NaN] Started " + THREADS + " garbage collector!");
+        LOGGER.info("Started garbage collector thread!");
     }
 }
