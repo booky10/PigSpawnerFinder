@@ -20,6 +20,9 @@ public class ArgumentParser extends OptionParser {
     private void init() {
         accepts("help");
         accepts("version");
+
+        accepts("threads").withRequiredArg().ofType(int.class).defaultsTo(Runtime.getRuntime().availableProcessors());
+        accepts("size").withRequiredArg().ofType(int.class).defaultsTo(2400);
     }
 
     public OptionSet parse() {

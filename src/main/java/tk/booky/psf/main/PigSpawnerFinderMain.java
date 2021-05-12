@@ -2,34 +2,37 @@ package tk.booky.psf.main;
 // Created by booky10 in PigSpawnerFinder (20:11 11.05.21)
 
 import PigSpawnerFinder.PigSpawnerFromWorldSeed;
+import joptsimple.OptionSet;
 import tk.booky.psf.utils.Constants;
 
 public class PigSpawnerFinderMain {
 
     // TODO: proper seed finding cleanup
 
-    private static final int SIZE = 2400, MULTIPLIED = SIZE * 2, THREADS = 10;
-
     public static void main(String[] args) {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> Constants.LOGGER.info("Shutting down"), "Shutdown Thread"));
         Thread.currentThread().setName("Startup Thread");
 
-        for (int i = 1; i <= THREADS; i++) {
+        OptionSet options = new ArgumentParser(args).parse();
+        int threads = (int) options.valueOf("threads");
+        int size = (int) options.valueOf("size"), multiplied = size * 2;
+
+        for (int i = 1; i <= threads; i++) {
             new Thread(() -> {
                 long seed;
                 // noinspection all
                 while (true) {
-                    Constants.LOGGER.info("Searching an area of {}x{} chunks in {}...", MULTIPLIED, MULTIPLIED, seed = Constants.RANDOM.nextLong());
+                    Constants.LOGGER.info("Searching an area of {}x{} chunks in {}...", multiplied, multiplied, seed = Constants.RANDOM.nextLong());
 
-                    for (int x = -SIZE; x < SIZE; x++) {
-                        for (int z = -SIZE; z < SIZE; z++) {
+                    for (int x = -size; x < size; x++) {
+                        for (int z = -size; z < size; z++) {
                             PigSpawnerFromWorldSeed.processForChunk(seed, x, z);
                         }
                     }
                 }
             }, "Finder Thread " + i).start();
 
-            if (i != THREADS) {
+            if (i != threads) {
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException exception) {
@@ -39,7 +42,7 @@ public class PigSpawnerFinderMain {
             }
         }
 
-        Constants.LOGGER.info("Started {} seed finding threads!", THREADS);
+        Constants.LOGGER.info("Started {} seed finding threads!", threads);
 
         new GarbageCollector().start();
         Constants.LOGGER.info("Started garbage collector thread!");
