@@ -1,13 +1,9 @@
 package tk.booky.psf.threads;
 // Created by booky10 in PigSpawnerFinder (19:53 12.05.21)
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import tk.booky.psf.utils.Constants;
 
 public class GarbageCollectorThread extends Thread {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger("Garbage Collector");
 
     public GarbageCollectorThread() {
         super("Garbage Collector Thread");
@@ -26,7 +22,7 @@ public class GarbageCollectorThread extends Thread {
     public void run() {
         while (true) {
             try {
-                LOGGER.debug("Running Garbage Collection...");
+                Constants.LOGGER.debug("Running Garbage Collection...");
                 System.gc();
 
                 Thread.sleep(1000);
