@@ -30,8 +30,28 @@ dependencies {
     implementation 'org.apache.logging.log4j:log4j-slf4j18-impl:2.14.1'
 }
 
-application {
+run {
     setMainClassName('tk.booky.psf.PigSpawnerFinderMain')
+    standardInput = System.in
+
+    setWorkingDir(new File(getProjectDir(), 'run'))
+    getWorkingDir().mkdirs()
 }
 
-shadowJar { classifier('') }
+jar { classifier('original') }
+
+
+shadowJar {
+    manifest(new Action<Manifest>() {
+        @Override
+        void execute(Manifest manifest) {
+            manifest.attributes(
+                    'Main-Class': getMainClassName(),
+                    'Implementation-Title': getRootProject().getName(),
+                    'Implementation-Version': getProject().getVersion(),
+                    'Implementation-Vendor': 'booky10',
+                    'Multi-Release': 'true'
+            )
+        }
+    })
+}
