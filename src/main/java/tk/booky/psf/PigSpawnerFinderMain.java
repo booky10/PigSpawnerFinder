@@ -4,12 +4,9 @@ package tk.booky.psf;
 import PigSpawnerFinder.PigSpawnerFromWorldSeed;
 
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class PigSpawnerFinderMain {
 
-    // TODO: make garbage collector daemon thread
     // TODO: proper logging system
     // TODO: jobtsimple \w argument parsing
     // TODO: proper seed finding cleanup
@@ -46,14 +43,9 @@ public class PigSpawnerFinderMain {
                 }
             }
         }
+        System.out.println("[Thread NaN] Started " + THREADS + " seed finding threads!");
 
-        new Timer().scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                System.gc();
-            }
-        }, 1000, 1000);
-
-        System.out.println("[Thread NaN] Started " + THREADS + " seed finding threads and garbage collector timer!");
+        new GarbageCollector().start();
+        System.out.println("[Thread NaN] Started " + THREADS + " garbage collector!");
     }
 }
