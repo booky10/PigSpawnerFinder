@@ -6,7 +6,6 @@ import tk.booky.psf.utils.Constants;
 
 public class PigSpawnerFinderMain {
 
-    // TODO: jobtsimple \w argument parsing
     // TODO: proper seed finding cleanup
 
     private static final int SIZE = 2400, MULTIPLIED = SIZE * 2, THREADS = 10;
